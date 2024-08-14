@@ -1,0 +1,36 @@
+screen:
+  full_screen: false
+  boot_image: "./img/bootup.png"
+network:
+  checks:
+    - name: Check Google
+      url: "https://www.google.com"
+      wait_time: 5s
+    - name: Check Facebook
+      url: "https://www.facebook.com"
+      wait_time: 5s
+processes:
+  - name: Wait 1 second
+    command: /bin/sleep
+    wait: true
+    wait_time: 5s
+    arguments:
+      - " 1"
+    environment:
+      - key1: value1
+      - key2: value2
+  - name: Wait 2 second
+    command: /bin/sleep
+    wait: true
+    wait_time: 5s
+    arguments:
+      - " 2"
+    environment:
+      - key1: value1
+      - key2: value2
+  - name: Zed App
+    command: zed
+    watch: true
+    environment:
+      - key1: value1
+      - key2: value2
