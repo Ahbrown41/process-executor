@@ -33,6 +33,10 @@ func main() {
 
 	// Create the GUI
 	win := screen.New().SetImage(cfg.Screen.BootImage)
+	if cfg.Screen.FullScreen {
+		win.FullScreen()
+	}
+
 	win.SetProgress("Starting")
 	var wg sync.WaitGroup
 

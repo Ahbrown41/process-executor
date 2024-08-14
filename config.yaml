@@ -1,5 +1,5 @@
 screen:
-  full_screen: false
+  full_screen: true
   boot_image: "./img/bootup.png"
 network:
   checks:
@@ -25,12 +25,6 @@ processes:
     wait_time: 5s
     arguments:
       - " 2"
-    environment:
-      - key1: value1
-      - key2: value2
-  - name: Zed App
-    command: zed
-    watch: true
     environment:
       - key1: value1
       - key2: value2
