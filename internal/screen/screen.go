@@ -22,10 +22,14 @@ func New() *Screen {
 		app: app.New(),
 	}
 	r.window = r.app.NewWindow("Booting")
-	r.progress = canvas.NewText("Starting", color.Black)
+	r.progress = canvas.NewText("Starting", color.White)
 	r.window.Canvas().SetOnTypedKey(func(k *fyne.KeyEvent) {
 		if k.Name == fyne.KeyEscape {
-			r.window.Close()
+			slog.Debug("Escape Pressed!",
+				slog.String("Key", string(k.Name)),
+				slog.Int("Code", k.Physical.ScanCode),
+			)
+			r.Close()
 		} else {
 			slog.Debug("Key Pressed",
 				slog.String("Key", string(k.Name)),
@@ -48,7 +52,10 @@ func (r *Screen) GetWindow() fyne.Window {
 func (r *Screen) SetImage(imagePath string) *Screen {
 	image := canvas.NewImageFromFile(imagePath)
 	image.FillMode = canvas.ImageFillOriginal
-	r.container = container.NewBorder(nil, r.progress, nil, nil, image)
+	r.container = container.NewStack(
+		canvas.NewRectangle(color.RGBA{R: 33, G: 39, B: 33, A: 200}),
+		container.NewBorder(nil, r.progress, nil, nil, image),
+	)
 	r.window.SetContent(r.container)
 	return r
 }
@@ -70,5 +77,6 @@ func (r *Screen) FullScreen() *Screen {
 // Close closes the window
 func (r *Screen) Close() *Screen {
 	r.window.Close()
+	r.app.Quit()
 	return r
 }

@@ -68,13 +68,13 @@ func Children(pid int32) error {
 	return nil
 }
 
-func PrintProcesses() error {
+func PrintProcesses(id string) error {
 	procs, err := processLib.Processes()
 	if err != nil {
 		return err
 	}
 	for _, proc := range procs {
-		err := PrintProcessInfo(proc.Pid)
+		err := PrintProcessInfo(proc.Pid, id)
 		if err != nil {
 			return err
 		}
@@ -83,12 +83,13 @@ func PrintProcesses() error {
 }
 
 // PrintProcessInfo prints information about a process
-func PrintProcessInfo(pid int32) error {
+func PrintProcessInfo(pid int32, id string) error {
 	proc, err := processLib.NewProcess(pid)
 	if err != nil {
 		return err
 	}
 	attrs := []any{
+		slog.String("ID", id),
 		slog.Int("Pid", int(proc.Pid)),
 	}
 

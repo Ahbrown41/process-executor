@@ -7,39 +7,38 @@ import (
 )
 
 type Config struct {
-	Screen    Screen    `yaml:"screen"`
+	Display   Display   `yaml:"display"`
 	Processes []Process `yaml:"processes"`
 }
 
-type Network struct {
-	checks []Check `yaml:"checks"`
-}
-
-type Check struct {
-	Name     string `yaml:"name"`
-	Url      string `yaml:"url"`
-	WaitTime int    `yaml:"wait_time"`
-}
-
 type Process struct {
-	Name        string        `yaml:"name"`
-	Command     string        `yaml:"command"`
-	Wait        bool          `yaml:"wait"`
-	WaitTime    time.Duration `yaml:"wait_time"`
-	Watch       bool          `yaml:"watch"`
-	Arguments   []string      `yaml:"arguments"`
-	LogFile     string        `yaml:"log_file"`
-	Environment []Environment `yaml:"environment"`
+	Name          string        `yaml:"name"`
+	PreConditions []Condition   `yaml:"preConditions"`
+	WorkDir       string        `yaml:"workDir"`
+	Command       string        `yaml:"command"`
+	Wait          bool          `yaml:"wait"`
+	WaitMax       time.Duration `yaml:"waitMax"`
+	Restart       bool          `yaml:"restart"`
+	Arguments     []string      `yaml:"arguments"`
+	Environment   []Attribute   `yaml:"environment"`
 }
 
-type Environment struct {
+type Condition struct {
+	Name       string        `yaml:"name"`
+	Type       string        `yaml:"type"`
+	Wait       bool          `yaml:"wait"`
+	Timeout    time.Duration `yaml:"timeout"`
+	Attributes []Attribute   `yaml:"attributes"`
+}
+
+type Attribute struct {
 	Key   string `yaml:"key"`
 	Value string `yaml:"value"`
 }
 
-type Screen struct {
-	FullScreen bool   `yaml:"full_screen"`
-	BootImage  string `yaml:"boot_image"`
+type Display struct {
+	FullScreen bool   `yaml:"fullScreen"`
+	BootImage  string `yaml:"bootImage"`
 }
 
 // Load reads a configuration file and returns a Config.
