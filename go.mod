@@ -1,6 +1,6 @@
 module process-orchestrator
 
-go 1.22
+go 1.25.0
 
 require (
 	fyne.io/fyne/v2 v2.5.0
@@ -40,8 +40,8 @@ require (
 	github.com/tklauser/numcpus v0.6.1 // indirect
 	github.com/yuin/goldmark v1.7.1 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
-	golang.org/x/image v0.18.0 // indirect
+	golang.org/x/image v0.38.0 // indirect
 	golang.org/x/mobile v0.0.0-20231127183840-76ac6878050a // indirect
 	golang.org/x/net v0.25.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
+	golang.org/x/text v0.35.0 // indirect
 )
